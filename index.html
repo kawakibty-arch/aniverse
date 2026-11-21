@@ -543,7 +543,28 @@ function closePlayer() {
   document.getElementById("player").style.display = "none";
   document.getElementById("details").style.display = "block";
 }
+function openEpisode(animeTitle, episodeNumber) {
+  document.getElementById("details").style.display = "none";
+  document.getElementById("player").style.display = "block";
 
+  document.getElementById("playerTitle").textContent =
+    animeTitle + " — Episode " + episodeNumber;
+
+  document.getElementById("watchAnimeTitle").textContent =
+    animeTitle + " — Episode " + episodeNumber;
+
+  document.getElementById("videoArea").innerHTML = `
+    <div class="video-placeholder">
+      <h2>▶ ANIMEVERSE</h2>
+      <p>Episode ${episodeNumber} selected</p>
+      <p>An authorized video source is needed for playback.</p>
+    </div>
+  `;
+
+  document.getElementById("player").scrollIntoView({
+    behavior: "smooth"
+  });
+}
 document.getElementById("search").addEventListener("input", e => {
   const query = e.target.value.trim();
 
