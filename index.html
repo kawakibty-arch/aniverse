@@ -400,11 +400,7 @@ function openAnime(anime) {
     (anime.description || "No description available.")
     .replace(/<[^>]*>/g, "");
 
-const watchlist = JSON.parse(
-  localStorage.getItem("animeWatchlist") || "[]"
-);
-
-const saved = watchlist.some(item => item.id === anime.id);
+const saved = cloudWatchlistIds.has(anime.id);
 
 const saveButton = document.createElement("button");
 saveButton.className = "btn";
