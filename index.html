@@ -71,6 +71,16 @@ footer{text-align:center;padding:30px;color:#888;background:#10101a}
 </div>
 </section>
 
+<section id="watchlistSection">
+  <h2>❤️ My Watchlist</h2>
+  <p style="color:#aaa;margin-bottom:20px">
+    Your saved anime, all in one place.
+  </p>
+  <div class="grid" id="watchlistGrid">
+    <p style="color:#aaa">No anime saved yet.</p>
+  </div>
+</section>
+
 <div id="details">
 <button class="btn" onclick="closeDetails()">← Back</button>
 <div style="display:flex;gap:25px;flex-wrap:wrap;margin-top:25px">
@@ -223,6 +233,23 @@ function openAnime(anime) {
     (anime.description || "No description available.")
     .replace(/<[^>]*>/g, "");
 
+const watchlist = JSON.parse(
+  localStorage.getItem("animeWatchlist") || "[]"
+);
+
+const saved = watchlist.some(item => item.id === anime.id);
+
+const saveButton = document.createElement("button");
+saveButton.className = "btn";
+saveButton.textContent = saved
+  ? "❤️ Remove from Watchlist"
+  : "🤍 Add to Watchlist";
+
+saveButton.onclick = () => toggleWatchlist(anime);
+
+document.getElementById("detailDesc")
+  .after(saveButton);
+
   const list = document.getElementById("episodeList");
   list.innerHTML = "";
 
@@ -267,6 +294,61 @@ document.getElementById("search").addEventListener("input", e => {
     fetchAnime(query);
   }, 600);
 });
+
+function toggleWatchlist(anime) {
+  let saved = JSON.parse(
+    localStorage.getItem("animeWatchlist") || "[]"
+  );
+
+  const exists = saved.some(item => item.id === anime.id);
+
+  if (exists) {
+    saved = saved.filter(item => item.id !== anime.id);
+  } else {
+    saved.push(anime);
+  }
+
+  localStorage.setItem(
+    "animeWatchlist",
+    JSON.stringify(saved)
+  );
+
+  renderWatchlist();
+  openAnime(anime);
+}
+
+function renderWatchlist() {
+  const saved = JSON.parse(
+    localStorage.getItem("animeWatchlist") || "[]"
+  );
+
+  const container = document.getElementById("watchlistGrid");
+  container.innerHTML = "";
+
+  if (saved.length === 0) {
+    container.textContent = "No anime saved yet.";
+    return;
+  }
+
+  saved.forEach(anime => {
+    const card = document.createElement("div");
+    card.className = "anime";
+
+    const img = document.createElement("img");
+    img.src = anime.coverImage.large;
+    img.alt = anime.title.romaji;
+
+    const title = document.createElement("h3");
+    title.textContent = anime.title.english || anime.title.romaji;
+
+    card.append(img, title);
+    card.onclick = () => openAnime(anime);
+
+    container.appendChild(card);
+  });
+}
+
+renderWatchlist();
 
 fetchAnime();
 </script>
