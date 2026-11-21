@@ -524,6 +524,20 @@ genres.textContent =
 
 list.appendChild(genres);
 
+if (
+  (anime.title.english || anime.title.romaji)
+    .toLowerCase()
+    .includes("one piece")
+) {
+  const trailerButton = document.createElement("button");
+  trailerButton.className = "btn";
+  trailerButton.textContent = "▶ Watch One Piece Trailer";
+
+  trailerButton.onclick = () => openTrailer();
+
+  list.appendChild(trailerButton);
+}
+
 const episodeCount = anime.episodes || 0;
 
 if (episodeCount > 0) {
