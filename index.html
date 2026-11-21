@@ -222,7 +222,8 @@ async function fetchAnime(search = null, genre = null, sort = "POPULARITY_DESC")
         query: animeQuery,
        variables: {
   search,
-  genres: genre ? [genre] : null
+  genres: genre ? [genre] : null,
+  sort
 }
       })
     });
