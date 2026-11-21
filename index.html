@@ -562,23 +562,7 @@ async function renderWatchlist() {
   });
 }
 
-  let saved = JSON.parse(
-    localStorage.getItem("animeWatchlist") || "[]"
-  );
-
-  const exists = saved.some(item => item.id === anime.id);
-
-  if (exists) {
-    saved = saved.filter(item => item.id !== anime.id);
-  } else {
-    saved.push(anime);
-  }
-
-  localStorage.setItem(
-    "animeWatchlist",
-    JSON.stringify(saved)
-  );
-
+ 
   renderWatchlist();
   openAnime(anime);
 }
