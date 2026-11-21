@@ -562,11 +562,6 @@ async function renderWatchlist() {
   });
 }
 
- 
-  renderWatchlist();
-  openAnime(anime);
-}
-
 function renderWatchlist() {
   const saved = JSON.parse(
     localStorage.getItem("animeWatchlist") || "[]"
