@@ -148,12 +148,37 @@ margin-bottom:20px;cursor:pointer;">
 <div class="episodes" id="episodeList"></div>
 </div>
 
-<div id="player">
-<button class="btn" onclick="closePlayer()">← Back to anime</button>
-<h2 id="playerTitle" style="margin:20px 0"></h2>
-<div id="videoArea"></div>
-<p style="color:#aaa;margin-top:12px">Playback is available only through authorized video sources.</p>
+
+<div id="player" style="display:none">
+  <button class="btn" onclick="closePlayer()">← Back to anime</button>
+
+  <h2 id="playerTitle" style="margin:20px 0"></h2>
+
+  <div class="watch-layout">
+    <div class="watch-main">
+      <div id="videoArea" class="video-screen">
+        <div class="video-placeholder">
+          <h2>▶ ANIMEVERSE</h2>
+          <p>Your anime episode will appear here.</p>
+          <p>Authorized video source required.</p>
+        </div>
+      </div>
+
+      <div class="watch-info">
+        <h3 id="watchAnimeTitle">Select an episode</h3>
+        <p>Enjoy watching on Animeverse.</p>
+      </div>
+    </div>
+
+    <div class="episode-panel">
+      <h3>Episodes</h3>
+      <div id="watchEpisodeList">
+        <p>Episodes will appear here.</p>
+      </div>
+    </div>
+  </div>
 </div>
+
 
 <footer>© 2026 Animeverse | Made for Anime Fans ❤️</footer>
 
