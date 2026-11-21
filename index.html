@@ -515,20 +515,34 @@ document.getElementById("detailDesc")
   .after(saveButton);
 
   const list = document.getElementById("episodeList");
-  list.innerHTML = "";
+list.innerHTML = "";
 
-  const genres = document.createElement("p");
-  genres.style.color = "#c084fc";
-  genres.textContent =
-    "Genres: " + (anime.genres || []).join(", ");
+const genres = document.createElement("p");
+genres.style.color = "#c084fc";
+genres.textContent =
+  "Genres: " + (anime.genres || []).join(", ");
 
+list.appendChild(genres);
+
+const episodeCount = anime.episodes || 0;
+
+if (episodeCount > 0) {
+  for (let i = 1; i <= episodeCount; i++) {
+    const button = document.createElement("button");
+    button.textContent = "Episode " + i;
+
+    button.onclick = () => openEpisode(
+      anime.title.english || anime.title.romaji,
+      i
+    );
+
+    list.appendChild(button);
+  }
+} else {
   const message = document.createElement("p");
-  message.style.color = "#bbb";
-  message.style.marginTop = "15px";
-  message.textContent =
-    "Episode viewing will be added in a future update using authorized streaming sources.";
-
-  list.append(genres, message);
+  message.textContent = "Episode information is not available.";
+  list.appendChild(message);
+}
 
   document.getElementById("details").scrollIntoView({
     behavior: "smooth"
