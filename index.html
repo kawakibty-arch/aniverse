@@ -9,10 +9,10 @@
 </style></head>
 <body>
 <header class="top"><div class="logo">ANIME<b>VERSE</b></div><nav><a href="#">Home</a><a href="#catalog">Explore</a><a href="#watchlist">Watchlist</a></nav><div class="search"><input id="search" placeholder="Search anime…" aria-label="Search anime"></div></header>
-<section class="hero"><div class="eyebrow">YOUR NEXT OBSESSION STARTS HERE</div><h1>Enter a world beyond limits.</h1><p>Discover anime, explore seasonal releases and build your personal watchlist. Catalogue information is automatically provided by AniList.</p><button class="btn" onclick="document.querySelector('#catalog').scrollIntoView()">Explore anime</button><button class="btn alt" onclick="loadSeason()">This season</button></section>
+<section class="hero"><div class="eyebrow">YOUR NEXT OBSESSION STARTS HERE</div><h1>Enter a world beyond limits.</h1><p>Discover anime, explore seasonal releases and build your personal watchlist. Find legal viewing options through official streaming services.</p><button class="btn" onclick="document.querySelector('#catalog').scrollIntoView()">Explore anime</button><button class="btn alt" onclick="loadSeason()">This season</button></section>
 <section class="section" id="catalog"><div class="head"><div><h2>Discover anime</h2><p>Live catalogue · Search and browse titles</p></div><div class="status" id="status">Loading catalogue…</div></div><div class="filters"><button class="chip active" data-kind="TRENDING">Trending</button><button class="chip" data-kind="POPULARITY">Popular</button><button class="chip" data-kind="SCORE">Top rated</button><button class="chip" data-kind="SEASON">This season</button></div><div class="grid" id="grid"></div><div style="text-align:center;margin-top:22px"><button class="btn alt" id="more">Load more</button></div></section>
 <section class="section" id="watchlist"><div class="head"><div><h2>My watchlist</h2><p>Saved on this device</p></div></div><div class="grid" id="saved"></div></section>
-<section class="player" id="player"><div style="display:flex;justify-content:space-between;gap:12px;align-items:center"><h2 id="playerTitle">Watch</h2><button class="mini" onclick="closePlayer()">Close</button></div><div class="video" id="video"></div><p class="note">This demo does not scrape or provide copyrighted episodes. To enable playback, add a video URL that you own, have licensed, or are authorized to distribute. You can use your own MP4/HLS hosting or a licensed streaming provider.</p></section>
+<section class="player" id="player"><div style="display:flex;justify-content:space-between;gap:12px;align-items:center"><h2 id="playerTitle">Watch</h2><button class="mini" onclick="closePlayer()">Close</button></div><div class="video" id="video"></div><p class="note">Animeverse does not host copyrighted episodes. Use the legal provider links in each anime's details to check official viewing options.</p></section>
 <footer class="footer">Animeverse · Anime metadata powered by <a href="https://anilist.co/" target="_blank" rel="noreferrer" style="color:#c8a8ff">AniList</a>. Anime artwork and metadata belong to their respective owners.</footer>
 <script>
 let page=1, sort='TRENDING_DESC', current=[], saved=JSON.parse(localStorage.getItem('animeverse-watchlist')||'[]'), searchTimer;
@@ -23,7 +23,31 @@ async function load(sortMode=sort, query=''){sort=sortMode;statusEl.textContent=
 function renderSaved(){const items=saved.map(id=>current.find(a=>a.id===id)).filter(Boolean);document.querySelector('#saved').innerHTML=items.length?items.map(card).join(''):'<div class="empty">Your watchlist is empty. Save anime you want to watch.</div>'}
 function toggleSave(id){saved=saved.includes(id)?saved.filter(x=>x!==id):[...saved,id];localStorage.setItem('animeverse-watchlist',JSON.stringify(saved));renderSaved();loadCurrentCards()}
 function loadCurrentCards(){grid.innerHTML=current.map(card).join('')}
-function showDetails(id){const a=current.find(x=>x.id===id);if(!a)return;document.querySelector('#player').style.display='block';document.querySelector('#playerTitle').textContent=a.title.english||a.title.romaji||'Anime details';document.querySelector('#video').innerHTML=`<div style="padding:22px;background:#111121;height:100%;overflow:auto"><p>${esc(a.description?.replace(/<[^>]*>/g,' ')||'No synopsis available.')}</p><p class="note">Format: ${esc(a.format||'—')} · Episodes: ${a.episodes??'TBA'} · Status: ${esc(a.status||'—')}</p><p class="note">This title's episode streams are not supplied by AniList. Add an authorized video source to enable playback.</p>${a.siteUrl?`<a style="color:#d5b6ff" target="_blank" rel="noreferrer" href="${esc(a.siteUrl)}">Open official anime page ↗</a>`:''}</div>`;document.querySelector('#player').scrollIntoView({behavior:'smooth'})}
+function showDetails(id){
+  const a=current.find(x=>x.id===id);
+  if(!a)return;
+  const title=a.title.english||a.title.romaji||a.title.native||'Anime';
+  const q=encodeURIComponent(title);
+  const justWatch=`https://www.justwatch.com/in/search?q=${q}`;
+  const muse=`https://www.youtube.com/results?search_query=${encodeURIComponent('site:youtube.com/@MuseIndiaChannel '+title+' official')}`;
+  const aniOne=`https://www.youtube.com/results?search_query=${encodeURIComponent('site:youtube.com/@AniOneIN '+title+' official')}`;
+  document.querySelector('#player').style.display='block';
+  document.querySelector('#playerTitle').textContent=title;
+  document.querySelector('#video').innerHTML=`<div style="padding:22px;background:#111121;min-height:100%;overflow:auto">
+    <p>${esc(a.description?.replace(/<[^>]*>/g,' ')||'No synopsis available.')}</p>
+    <p class="note">Format: ${esc(a.format||'—')} · Episodes: ${a.episodes??'TBA'} · Status: ${esc(a.status||'—')}</p>
+    <h3 style="margin:22px 0 8px">Find where to watch</h3>
+    <p class="note">Choose a legal provider and check whether this title is currently available in your region. Availability, language and subscription requirements vary.</p>
+    <div style="display:flex;gap:9px;flex-wrap:wrap;margin:14px 0">
+      <a class="btn" style="text-decoration:none;display:inline-block" target="_blank" rel="noopener noreferrer" href="${justWatch}">Search JustWatch India ↗</a>
+      <a class="btn alt" style="text-decoration:none;display:inline-block;margin:0" target="_blank" rel="noopener noreferrer" href="${muse}">Search Muse India ↗</a>
+      <a class="btn alt" style="text-decoration:none;display:inline-block;margin:0" target="_blank" rel="noopener noreferrer" href="${aniOne}">Search Ani-One India ↗</a>
+    </div>
+    ${a.siteUrl?`<p><a style="color:#d5b6ff" target="_blank" rel="noopener noreferrer" href="${esc(a.siteUrl)}">Open official anime information page ↗</a></p>`:''}
+    <p class="note">Animeverse does not host or rebroadcast copyrighted episodes. These links help you find authorized viewing options; they do not guarantee that a title is available on every service.</p>
+  </div>`;
+  document.querySelector('#player').scrollIntoView({behavior:'smooth'});
+}
 function closePlayer(){document.querySelector('#player').style.display='none';document.querySelector('#video').innerHTML=''}
 function loadSeason(){page=1;document.querySelectorAll('.chip').forEach(x=>x.classList.toggle('active',x.dataset.kind==='SEASON'));load('START_DATE_DESC')}
 document.querySelectorAll('.chip').forEach(b=>b.addEventListener('click',()=>{page=1;document.querySelectorAll('.chip').forEach(x=>x.classList.toggle('active',x===b));load(b.dataset.kind+'_DESC',document.querySelector('#search').value.trim())}));
