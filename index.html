@@ -1,0 +1,433 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ANIMEVERSE | Anime Streaming</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #090a12;
+  color: white;
+  font-family: Arial, sans-serif;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 22px 7%;
+  background: #10111b;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.logo {
+  font-size: 26px;
+  font-weight: bold;
+  color: #ff3d71;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  margin-left: 22px;
+}
+
+nav a:hover {
+  color: #ff3d71;
+}
+
+.hero {
+  min-height: 390px;
+  padding: 100px 8%;
+  background:
+    linear-gradient(90deg, #090a12 15%, transparent),
+    linear-gradient(0deg, #090a12, transparent),
+    url("https://images.unsplash.com/photo-1578632767115-351597cf2477?w=1600")
+    center/cover;
+}
+
+.hero h1 {
+  font-size: 48px;
+  max-width: 550px;
+  margin-bottom: 15px;
+}
+
+.hero p {
+  color: #ddd;
+  margin-bottom: 25px;
+  max-width: 450px;
+  line-height: 1.6;
+}
+
+button {
+  background: #ff3d71;
+  color: white;
+  border: none;
+  padding: 12px 22px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+button:hover {
+  background: #e51e56;
+}
+
+.container {
+  padding: 35px 7%;
+}
+
+.section-title {
+  font-size: 25px;
+  margin-bottom: 22px;
+}
+
+.search-area {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 25px;
+  flex-wrap: wrap;
+}
+
+input, select {
+  padding: 12px;
+  background: #191a27;
+  color: white;
+  border: 1px solid #333;
+  border-radius: 6px;
+}
+
+input {
+  flex: 1;
+  min-width: 180px;
+}
+
+select {
+  min-width: 140px;
+}
+
+.anime-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(165px, 1fr));
+  gap: 22px;
+}
+
+.anime-card {
+  background: #151622;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: 0.3s;
+}
+
+.anime-card:hover {
+  transform: translateY(-7px);
+}
+
+.anime-card img {
+  width: 100%;
+  height: 230px;
+  object-fit: cover;
+}
+
+.card-info {
+  padding: 13px;
+}
+
+.card-info h3 {
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+.card-info p {
+  font-size: 12px;
+  color: #aaa;
+  margin-bottom: 12px;
+}
+
+.card-info button {
+  width: 100%;
+  padding: 9px;
+}
+
+.watchlist {
+  background: #25263a;
+  margin-top: 7px;
+}
+
+#player {
+  display: none;
+  padding: 30px 7%;
+  background: #141522;
+}
+
+#player video {
+  width: 100%;
+  max-height: 500px;
+  background: black;
+}
+
+#player iframe {
+  width: 100%;
+  aspect-ratio: 16/9;
+  border: 0;
+}
+
+#player h2 {
+  margin: 15px 0;
+}
+
+.close {
+  margin-bottom: 15px;
+  background: #333;
+}
+
+footer {
+  text-align: center;
+  padding: 30px;
+  color: #777;
+  background: #10111b;
+  margin-top: 40px;
+}
+
+@media(max-width:600px) {
+  header {
+    padding: 18px 5%;
+  }
+
+  nav a {
+    margin-left: 8px;
+    font-size: 12px;
+  }
+
+  .hero {
+    padding: 75px 6%;
+  }
+
+  .hero h1 {
+    font-size: 34px;
+  }
+
+  .container {
+    padding: 25px 5%;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">ANIMEVERSE.</div>
+  <nav>
+    <a href="#">Home</a>
+    <a href="#anime">Anime</a>
+    <a href="#watchlist">Watchlist</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <h1>YOUR ANIME WORLD</h1>
+  <p>Discover legendary adventures, unforgettable characters
+  and amazing anime series.</p>
+  <button onclick="document.getElementById('anime').scrollIntoView()">
+    Explore Anime
+  </button>
+</section>
+
+<section id="player">
+  <button class="close" onclick="closePlayer()">✕ Close Player</button>
+  <h2 id="playerTitle">Now Playing</h2>
+  <div id="videoArea"></div>
+  <p style="color:#aaa;margin-top:12px">
+    Playback is available when you add an authorized video source.
+  </p>
+</section>
+
+<section class="container" id="anime">
+  <h2 class="section-title">🔥 Popular Anime</h2>
+
+  <div class="search-area">
+    <input id="search" placeholder="Search anime..."
+      oninput="renderAnime()">
+
+    <select id="genre" onchange="renderAnime()">
+      <option value="All">All Genres</option>
+      <option value="Action">Action</option>
+      <option value="Adventure">Adventure</option>
+      <option value="Fantasy">Fantasy</option>
+      <option value="Sports">Sports</option>
+    </select>
+  </div>
+
+  <div class="anime-grid" id="animeGrid"></div>
+</section>
+
+<section class="container" id="watchlist">
+  <h2 class="section-title">❤️ My Watchlist</h2>
+  <div class="anime-grid" id="savedGrid"></div>
+</section>
+
+<footer>
+  © 2026 ANIMEVERSE. All rights reserved.
+  <p style="margin-top:8px">Anime discovery made for fans.</p>
+</footer>
+
+<script>
+const anime = [
+  {
+    title:"Demon Slayer",
+    genre:"Action",
+    rating:"9.0",
+    image:"https://cdn.myanimelist.net/images/anime/1286/99889.jpg",
+    url:""
+  },
+  {
+    title:"Attack on Titan",
+    genre:"Action",
+    rating:"9.1",
+    image:"https://cdn.myanimelist.net/images/anime/10/47347.jpg",
+    url:""
+  },
+  {
+    title:"One Piece",
+    genre:"Adventure",
+    rating:"9.0",
+    image:"https://cdn.myanimelist.net/images/anime/6/73245.jpg",
+    url:""
+  },
+  {
+    title:"Jujutsu Kaisen",
+    genre:"Action",
+    rating:"8.6",
+    image:"https://cdn.myanimelist.net/images/anime/1171/109222.jpg",
+    url:""
+  },
+  {
+    title:"Naruto",
+    genre:"Adventure",
+    rating:"8.4",
+    image:"https://cdn.myanimelist.net/images/anime/13/17405.jpg",
+    url:""
+  },
+  {
+    title:"Haikyuu",
+    genre:"Sports",
+    rating:"8.7",
+    image:"https://cdn.myanimelist.net/images/anime/7/76014.jpg",
+    url:""
+  },
+  {
+    title:"Solo Leveling",
+    genre:"Fantasy",
+    rating:"8.7",
+    image:"https://cdn.myanimelist.net/images/anime/1801/142390.jpg",
+    url:""
+  },
+  {
+    title:"Death Note",
+    genre:"Fantasy",
+    rating:"8.6",
+    image:"https://cdn.myanimelist.net/images/anime/9/9453.jpg",
+    url:""
+  }
+];
+
+let saved = [];
+
+function createCard(a) {
+  const index = anime.indexOf(a);
+
+  return `
+    <div class="anime-card">
+      <img src="${a.image}" alt="${a.title}"
+        onerror="this.src='https://placehold.co/300x400/191a27/ffffff?text=Anime'">
+      <div class="card-info">
+        <h3>${a.title}</h3>
+        <p>${a.genre} • ⭐ ${a.rating}</p>
+        <button onclick="playAnime(${index})">▶ Watch</button>
+        <button class="watchlist"
+          onclick="toggleSave(${index})">♡ Watchlist</button>
+      </div>
+    </div>`;
+}
+
+function renderAnime() {
+  const q = document.getElementById("search").value.toLowerCase();
+  const g = document.getElementById("genre").value;
+
+  const filtered = anime.filter(a =>
+    a.title.toLowerCase().includes(q) &&
+    (g === "All" || a.genre === g)
+  );
+
+  document.getElementById("animeGrid").innerHTML =
+    filtered.length
+      ? filtered.map(createCard).join("")
+      : "<p>No anime found.</p>";
+
+  renderSaved();
+}
+
+function playAnime(index) {
+  const a = anime[index];
+
+  document.getElementById("player").style.display = "block";
+  document.getElementById("playerTitle").textContent = a.title;
+
+  const area = document.getElementById("videoArea");
+
+  if (a.url) {
+    area.innerHTML = `
+      <video controls autoplay>
+        <source src="${a.url}" type="video/mp4">
+        Your browser does not support video.
+      </video>`;
+  } else {
+    area.innerHTML = `
+      <div style="padding:35px;background:#090a12;text-align:center">
+        <h3>Video source not added yet</h3>
+        <p style="color:#aaa;margin:12px">
+          Add an authorized video URL to this anime's url field.
+        </p>
+      </div>`;
+  }
+
+  document.getElementById("player").scrollIntoView();
+}
+
+function closePlayer() {
+  document.getElementById("player").style.display = "none";
+  document.getElementById("videoArea").innerHTML = "";
+}
+
+function toggleSave(index) {
+  if(saved.includes(index)) {
+    saved = saved.filter(i => i !== index);
+  } else {
+    saved.push(index);
+  }
+  renderSaved();
+}
+
+function renderSaved() {
+  document.getElementById("savedGrid").innerHTML =
+    saved.length
+      ? saved.map(i => createCard(anime[i])).join("")
+      : "<p style='color:#aaa'>Your watchlist is empty.</p>";
+}
+
+renderAnime();
+</script>
+
+</body>
+</html>
