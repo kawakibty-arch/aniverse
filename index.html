@@ -64,6 +64,19 @@ footer{text-align:center;padding:30px;color:#888;background:#10101a}
 </div>
 </div>
 
+<section id="categories">
+  <h2>🎭 Browse Categories</h2>
+  <div style="display:flex;gap:12px;flex-wrap:wrap">
+    <button class="btn" onclick="fetchAnime(null,'Action')">⚔️ Action</button>
+    <button class="btn" onclick="fetchAnime(null,'Romance')">❤️ Romance</button>
+    <button class="btn" onclick="fetchAnime(null,'Comedy')">😂 Comedy</button>
+    <button class="btn" onclick="fetchAnime(null,'Adventure')">🌍 Adventure</button>
+    <button class="btn" onclick="fetchAnime(null,'Fantasy')">✨ Fantasy</button>
+    <button class="btn" onclick="fetchAnime(null,'Horror')">👻 Horror</button>
+    <button class="btn" onclick="fetchAnime()">All Anime</button>
+  </div>
+</section>
+
 <section id="popular">
 <h2>🔥 Popular Anime</h2>
 <div class="grid" id="animeGrid">
