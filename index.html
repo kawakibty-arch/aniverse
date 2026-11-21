@@ -562,32 +562,6 @@ async function renderWatchlist() {
   });
 }
 
-  const container = document.getElementById("watchlistGrid");
-  container.innerHTML = "";
-
-  if (saved.length === 0) {
-    container.textContent = "No anime saved yet.";
-    return;
-  }
-
-  saved.forEach(anime => {
-    const card = document.createElement("div");
-    card.className = "anime";
-
-    const img = document.createElement("img");
-    img.src = anime.coverImage.large;
-    img.alt = anime.title.romaji;
-
-    const title = document.createElement("h3");
-    title.textContent = anime.title.english || anime.title.romaji;
-
-    card.append(img, title);
-    card.onclick = () => openAnime(anime);
-
-    container.appendChild(card);
-  });
-}
-
 renderWatchlist();
 fetchAnime();
 </script>
