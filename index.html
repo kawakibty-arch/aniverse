@@ -562,10 +562,6 @@ async function renderWatchlist() {
   });
 }
 
-function renderWatchlist() {
-  const saved = JSON.parse(
-    localStorage.getItem("animeWatchlist") || "[]"
-  );
 
   const container = document.getElementById("watchlistGrid");
   container.innerHTML = "";
