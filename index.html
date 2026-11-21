@@ -247,6 +247,12 @@ saveButton.textContent = saved
 
 saveButton.onclick = () => toggleWatchlist(anime);
 
+const oldButton = document.getElementById("saveAnimeButton");
+
+if (oldButton) oldButton.remove();
+
+saveButton.id = "saveAnimeButton";
+
 document.getElementById("detailDesc")
   .after(saveButton);
 
