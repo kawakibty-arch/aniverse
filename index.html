@@ -8,6 +8,7 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{background:#090910;color:white;font-family:Arial,sans-serif}
+<div id="authSection" style="text-align:right;padding:12px 6%;background:#151522">
 header{height:75px;padding:0 6%;display:flex;align-items:center;
 justify-content:space-between;background:#10101a;position:sticky;top:0;z-index:5}
 .logo{font-size:27px;font-weight:900;color:#a855f7}
@@ -45,7 +46,29 @@ footer{text-align:center;padding:30px;color:#888;background:#10101a}
 </style>
 </head>
 <body>
+<div id="authSection" style="text-align:right;padding:12px 6%;background:#151522">
+  <button class="btn" onclick="showAuth('login')">Login</button>
+  <button class="btn" onclick="showAuth('signup')">Sign Up</button>
+</div>
 
+<div id="authBox" style="display:none;padding:30px 6%;background:#20202d">
+  <h2 id="authTitle">Login to Animeverse</h2>
+
+  <input id="authEmail" type="email" placeholder="Email"
+  style="padding:12px;margin:10px 0;width:100%;max-width:350px">
+
+  <br>
+
+  <input id="authPassword" type="password" placeholder="Password"
+  style="padding:12px;margin:10px 0;width:100%;max-width:350px">
+
+  <br>
+
+  <button class="btn" onclick="handleAuth()">Continue</button>
+  <button class="btn" onclick="hideAuth()">Cancel</button>
+
+  <p id="authMessage" style="margin-top:15px"></p>
+</div>
 <header>
 <div class="logo">ANIMEVERSE</div>
 <nav>
