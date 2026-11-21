@@ -169,7 +169,10 @@ async function fetchAnime(search = null, genre = null) {
       },
       body: JSON.stringify({
         query: animeQuery,
-        variables: { search }
+       variables: {
+  search,
+  genres: genre ? [genre] : null
+}
       })
     });
 
