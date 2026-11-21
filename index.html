@@ -122,15 +122,17 @@ footer{text-align:center;padding:30px;color:#888;background:#10101a}
 const grid = document.getElementById("animeGrid");
 let animeList = [];
 let searchTimer;
-
+let selectedGenre = null;
 const API = "https://graphql.anilist.co";
 
+
 const animeQuery = `
-query ($search: String) {
+query ($search: String, $genres: [String]) {
   Page(page: 1, perPage: 24) {
     media(
       type: ANIME,
       search: $search,
+      genre_in: $genres,
       sort: POPULARITY_DESC
     ) {
       id
@@ -152,7 +154,8 @@ query ($search: String) {
   }
 }`;
 
-async function fetchAnime(search = null) {
+
+async function fetchAnime(search = null, genre = null) {
   grid.innerHTML = "<p>Loading anime...</p>";
 
   try {
