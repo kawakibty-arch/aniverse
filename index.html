@@ -1,57 +1,161 @@
-<!doctype html>
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#090914"><title>NEBULA — Animeverse</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Animeverse | Anime Streaming</title>
 <style>
-:root{--bg:#090914;--panel:#121225;--panel2:#1a1930;--text:#f7f5ff;--muted:#aaa6c1;--pink:#ff4fa3;--violet:#9875ff;--line:#302d4a}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,Arial,sans-serif}button,input,select{font:inherit}button{cursor:pointer}.top{height:72px;padding:0 5%;display:flex;align-items:center;gap:25px;background:#0d0c1bed;border-bottom:1px solid #ffffff12;position:sticky;top:0;z-index:5;backdrop-filter:blur(14px)}.logo{font-weight:950;letter-spacing:2px;font-size:22px}.logo b{color:var(--pink)}nav{display:flex;gap:18px}nav a{color:#c8c4dc;text-decoration:none;font-size:13px}.search{margin-left:auto;max-width:330px;width:100%}input,select{background:#19182d;border:1px solid var(--line);color:white;border-radius:10px;padding:11px 13px;outline:none}input{width:100%}.hero{padding:75px 8%;min-height:380px;background:radial-gradient(ellipse at 80% 30%,#a34fbd55,transparent 32%),linear-gradient(110deg,#17142e,#25123b 75%,#38163d)}.eyebrow{color:#ff91c5;letter-spacing:3px;font-size:11px;font-weight:800}.hero h1{font-size:clamp(42px,6vw,70px);line-height:1;margin:16px 0;max-width:650px}.hero p{color:#d0c9df;max-width:520px;line-height:1.65}.btn{border:0;border-radius:10px;padding:12px 18px;background:linear-gradient(110deg,var(--pink),var(--violet));color:white;font-weight:800}.btn.alt{background:#ffffff16;border:1px solid #ffffff25;margin-left:8px}.section{padding:32px 5%}.head{display:flex;justify-content:space-between;align-items:end;gap:12px;margin-bottom:18px}.head h2{margin:0;font-size:22px}.head p{margin:5px 0 0;color:var(--muted);font-size:12px}.filters{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0}.chip{border:1px solid var(--line);background:#151429;color:#c9c5db;padding:8px 13px;border-radius:30px;font-size:12px}.chip.active{background:#48234f;border-color:#a56bca;color:white}.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(165px,1fr));gap:17px}.card{background:var(--panel);border:1px solid #ffffff10;border-radius:13px;overflow:hidden;transition:.2s}.card:hover{transform:translateY(-4px);border-color:#a56bff80}.poster{height:235px;width:100%;object-fit:cover;background:linear-gradient(140deg,#38264f,#17162d)}.info{padding:12px}.title{font-weight:800;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.meta{color:var(--muted);font-size:11px;margin-top:6px}.actions{display:flex;gap:7px;margin-top:12px}.mini{flex:1;background:#211d39;color:white;border:1px solid var(--line);border-radius:8px;padding:8px 5px;font-size:11px}.mini.primary{background:#492448;border-color:#79416f}.player{display:none;margin:0 5% 28px;padding:18px;border:1px solid var(--line);border-radius:15px;background:var(--panel)}.player h2{margin:0 0 14px;font-size:18px}.video{aspect-ratio:16/9;background:#000;border-radius:10px;overflow:hidden}.video video{width:100%;height:100%}.note{font-size:12px;color:var(--muted);line-height:1.6}.empty{color:var(--muted);border:1px dashed var(--line);border-radius:12px;padding:25px;text-align:center}.status{color:var(--muted);font-size:12px}.footer{padding:28px 5%;border-top:1px solid var(--line);color:#77738d;font-size:12px}@media(max-width:650px){.top{gap:12px;padding:0 4%}nav{gap:9px}nav a{font-size:11px}.logo{font-size:17px}.search{max-width:140px}.hero{padding:60px 6%}.section{padding:25px 4%}.grid{grid-template-columns:repeat(auto-fill,minmax(140px,1fr))}}
-</style></head>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#090910;color:white;font-family:Arial,sans-serif}
+header{height:75px;padding:0 6%;display:flex;align-items:center;
+justify-content:space-between;background:#10101a;position:sticky;top:0;z-index:5}
+.logo{font-size:27px;font-weight:900;color:#a855f7}
+nav{display:flex;gap:22px}
+nav a{color:white;text-decoration:none}
+.search{background:#20202d;border:1px solid #39394a;padding:11px 15px;
+border-radius:20px;color:white;width:180px}
+.hero{min-height:390px;padding:85px 7%;display:flex;align-items:center;
+background:linear-gradient(90deg,#090910 15%,rgba(9,9,16,.7)),
+url('https://images.unsplash.com/photo-1578632767115-351597cf2477?w=1400')
+center/cover}
+.hero h1{font-size:52px;margin-bottom:15px}
+.hero p{color:#ddd;max-width:480px;line-height:1.7}
+.btn{display:inline-block;background:#9333ea;color:white;padding:13px 25px;
+border:0;border-radius:7px;margin-top:22px;cursor:pointer}
+section{padding:35px 6%}
+h2{margin-bottom:22px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:20px}
+.anime{background:#171722;border-radius:10px;overflow:hidden;cursor:pointer;
+transition:.2s}
+.anime:hover{transform:translateY(-5px)}
+.anime img{width:100%;height:225px;object-fit:cover}
+.anime h3{font-size:15px;padding:12px}
+.anime p{font-size:12px;color:#aaa;padding:0 12px 12px}
+#details{display:none;padding:35px 6%;background:#151522}
+#details img{width:180px;height:250px;object-fit:cover;border-radius:9px}
+.episodes{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+.episodes button{padding:12px;background:#29293b;color:white;border:0;
+border-radius:6px;cursor:pointer}
+#player{display:none;padding:30px 6%}
+video,iframe{width:100%;max-width:850px;aspect-ratio:16/9;background:black;border:0}
+footer{text-align:center;padding:30px;color:#888;background:#10101a}
+@media(max-width:650px){nav{display:none}.hero h1{font-size:36px}
+.search{width:130px}.grid{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
 <body>
-<header class="top"><div class="logo">ANIME<b>VERSE</b></div><nav><a href="#">Home</a><a href="#catalog">Explore</a><a href="#watchlist">Watchlist</a></nav><div class="search"><input id="search" placeholder="Search anime…" aria-label="Search anime"></div></header>
-<section class="hero"><div class="eyebrow">YOUR NEXT OBSESSION STARTS HERE</div><h1>Enter a world beyond limits.</h1><p>Discover anime, explore seasonal releases and build your personal watchlist. Find legal viewing options through official streaming services.</p><button class="btn" onclick="document.querySelector('#catalog').scrollIntoView()">Explore anime</button><button class="btn alt" onclick="loadSeason()">This season</button></section>
-<section class="section" id="catalog"><div class="head"><div><h2>Discover anime</h2><p>Live catalogue · Search and browse titles</p></div><div class="status" id="status">Loading catalogue…</div></div><div class="filters"><button class="chip active" data-kind="TRENDING">Trending</button><button class="chip" data-kind="POPULARITY">Popular</button><button class="chip" data-kind="SCORE">Top rated</button><button class="chip" data-kind="SEASON">This season</button></div><div class="grid" id="grid"></div><div style="text-align:center;margin-top:22px"><button class="btn alt" id="more">Load more</button></div></section>
-<section class="section" id="watchlist"><div class="head"><div><h2>My watchlist</h2><p>Saved on this device</p></div></div><div class="grid" id="saved"></div></section>
-<section class="player" id="player"><div style="display:flex;justify-content:space-between;gap:12px;align-items:center"><h2 id="playerTitle">Watch</h2><button class="mini" onclick="closePlayer()">Close</button></div><div class="video" id="video"></div><p class="note">Animeverse does not host copyrighted episodes. Use the legal provider links in each anime's details to check official viewing options.</p></section>
-<footer class="footer">Animeverse · Anime metadata powered by <a href="https://anilist.co/" target="_blank" rel="noreferrer" style="color:#c8a8ff">AniList</a>. Anime artwork and metadata belong to their respective owners.</footer>
+
+<header>
+<div class="logo">ANIMEVERSE</div>
+<nav>
+<a href="#">Home</a>
+<a href="#popular">Anime</a>
+<a href="#popular">Popular</a>
+</nav>
+<input class="search" id="search" placeholder="Search anime...">
+</header>
+
+<div class="hero">
+<div>
+<h1>ENTER THE ANIME WORLD</h1>
+<p>Discover amazing anime adventures. Explore your favourite series and find your next obsession.</p>
+<button class="btn" onclick="document.getElementById('popular').scrollIntoView()">Explore Anime</button>
+</div>
+</div>
+
+<section id="popular">
+<h2>🔥 Popular Anime</h2>
+<div class="grid" id="animeGrid">
+<p>Loading anime...</p>
+</div>
+</section>
+
+<div id="details">
+<button class="btn" onclick="closeDetails()">← Back</button>
+<div style="display:flex;gap:25px;flex-wrap:wrap;margin-top:25px">
+<img id="detailImg" src="">
+<div style="flex:1;min-width:220px">
+<h1 id="detailTitle"></h1>
+<p id="detailInfo" style="margin-top:15px;color:#bbb"></p>
+<p id="detailDesc" style="margin-top:15px;line-height:1.7"></p>
+</div>
+</div>
+<h2 style="margin-top:30px">Episodes / Official sources</h2>
+<div class="episodes" id="episodeList"></div>
+</div>
+
+<div id="player">
+<button class="btn" onclick="closePlayer()">← Back to anime</button>
+<h2 id="playerTitle" style="margin:20px 0"></h2>
+<div id="videoArea"></div>
+<p style="color:#aaa;margin-top:12px">Playback is available only through authorized video sources.</p>
+</div>
+
+<footer>© 2026 Animeverse | Made for Anime Fans ❤️</footer>
+
 <script>
-let page=1, sort='TRENDING_DESC', current=[], saved=JSON.parse(localStorage.getItem('animeverse-watchlist')||'[]'), searchTimer;
-const grid=document.querySelector('#grid'), statusEl=document.querySelector('#status');
-const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-function card(a){let title=a.title.english||a.title.romaji||a.title.native||'Untitled';let genres=(a.genres||[]).slice(0,2).join(' · ');return `<article class="card"><img class="poster" loading="lazy" src="${esc(a.coverImage?.large||a.coverImage?.medium||'')}" alt="${esc(title)}" onerror="this.style.opacity=.15"><div class="info"><div class="title" title="${esc(title)}">${esc(title)}</div><div class="meta">${esc(a.format||'Anime')} · ${esc(a.seasonYear||a.startDate?.year||'TBA')} · ★ ${a.averageScore??'—'}</div><div class="meta">${esc(genres)}</div><div class="actions"><button class="mini primary" onclick="showDetails(${a.id})">Details</button><button class="mini" onclick="toggleSave(${a.id})">${saved.includes(a.id)?'♥ Saved':'♡ Save'}</button></div></div></article>`}
-async function load(sortMode=sort, query=''){sort=sortMode;statusEl.textContent='Loading…';grid.innerHTML='';try{const params=new URLSearchParams({page:String(page),sort,perPage:'24'});if(query)params.set('search',query);const r=await fetch('/api/anime?'+params);if(!r.ok)throw Error('Catalogue request failed ('+r.status+')');const data=await r.json();current=data.media||[];grid.innerHTML=current.length?current.map(card).join(''):'<div class="empty">No titles found. Try another search.</div>';statusEl.textContent=`${data.pageInfo?.total??current.length} results`;document.querySelector('#more').style.display=data.pageInfo?.hasNextPage?'inline-block':'none';renderSaved()}catch(e){statusEl.textContent='Could not load catalogue';grid.innerHTML=`<div class="empty">${esc(e.message)}. Check your Vercel deployment and try again.</div>`}}
-function renderSaved(){const items=saved.map(id=>current.find(a=>a.id===id)).filter(Boolean);document.querySelector('#saved').innerHTML=items.length?items.map(card).join(''):'<div class="empty">Your watchlist is empty. Save anime you want to watch.</div>'}
-function toggleSave(id){saved=saved.includes(id)?saved.filter(x=>x!==id):[...saved,id];localStorage.setItem('animeverse-watchlist',JSON.stringify(saved));renderSaved();loadCurrentCards()}
-function loadCurrentCards(){grid.innerHTML=current.map(card).join('')}
-function showDetails(id){
-  const a=current.find(x=>x.id===id);
-  if(!a)return;
-  const title=a.title.english||a.title.romaji||a.title.native||'Anime';
-  const q=encodeURIComponent(title);
-  const justWatch=`https://www.justwatch.com/in/search?q=${q}`;
-  const muse=`https://www.youtube.com/results?search_query=${encodeURIComponent('site:youtube.com/@MuseIndiaChannel '+title+' official')}`;
-  const aniOne=`https://www.youtube.com/results?search_query=${encodeURIComponent('site:youtube.com/@AniOneIN '+title+' official')}`;
-  document.querySelector('#player').style.display='block';
-  document.querySelector('#playerTitle').textContent=title;
-  document.querySelector('#video').innerHTML=`<div style="padding:22px;background:#111121;min-height:100%;overflow:auto">
-    <p>${esc(a.description?.replace(/<[^>]*>/g,' ')||'No synopsis available.')}</p>
-    <p class="note">Format: ${esc(a.format||'—')} · Episodes: ${a.episodes??'TBA'} · Status: ${esc(a.status||'—')}</p>
-    <h3 style="margin:22px 0 8px">Find where to watch</h3>
-    <p class="note">Choose a legal provider and check whether this title is currently available in your region. Availability, language and subscription requirements vary.</p>
-    <div style="display:flex;gap:9px;flex-wrap:wrap;margin:14px 0">
-      <a class="btn" style="text-decoration:none;display:inline-block" target="_blank" rel="noopener noreferrer" href="${justWatch}">Search JustWatch India ↗</a>
-      <a class="btn alt" style="text-decoration:none;display:inline-block;margin:0" target="_blank" rel="noopener noreferrer" href="${muse}">Search Muse India ↗</a>
-      <a class="btn alt" style="text-decoration:none;display:inline-block;margin:0" target="_blank" rel="noopener noreferrer" href="${aniOne}">Search Ani-One India ↗</a>
-    </div>
-    ${a.siteUrl?`<p><a style="color:#d5b6ff" target="_blank" rel="noopener noreferrer" href="${esc(a.siteUrl)}">Open official anime information page ↗</a></p>`:''}
-    <p class="note">Animeverse does not host or rebroadcast copyrighted episodes. These links help you find authorized viewing options; they do not guarantee that a title is available on every service.</p>
-  </div>`;
-  document.querySelector('#player').scrollIntoView({behavior:'smooth'});
+const grid=document.getElementById("animeGrid");
+let animeList=[];
+
+async function loadAnime(){
+try{
+const response=await fetch("https://api.jikan.moe/v4/top/anime?limit=24");
+const data=await response.json();
+animeList=data.data;
+showAnime(animeList);
+}catch(error){
+grid.innerHTML="<p>Unable to load anime. Please refresh.</p>";
 }
-function closePlayer(){document.querySelector('#player').style.display='none';document.querySelector('#video').innerHTML=''}
-function loadSeason(){page=1;document.querySelectorAll('.chip').forEach(x=>x.classList.toggle('active',x.dataset.kind==='SEASON'));load('START_DATE_DESC')}
-document.querySelectorAll('.chip').forEach(b=>b.addEventListener('click',()=>{page=1;document.querySelectorAll('.chip').forEach(x=>x.classList.toggle('active',x===b));load(b.dataset.kind+'_DESC',document.querySelector('#search').value.trim())}));
-document.querySelector('#search').addEventListener('input',e=>{clearTimeout(searchTimer);searchTimer=setTimeout(()=>{page=1;load(sort,e.target.value.trim())},350)});
-document.querySelector('#more').addEventListener('click',()=>{page++;load(sort,document.querySelector('#search').value.trim()).then(()=>window.scrollTo({top:document.querySelector('#catalog').offsetTop,behavior:'smooth'}))});
-load();
-</script></body></html>
+}
+
+function showAnime(list){
+grid.innerHTML="";
+list.forEach((anime)=>{
+const card=document.createElement("div");
+card.className="anime";
+card.innerHTML=`
+<img src="${anime.images.jpg.large_image_url}" alt="">
+<h3>${anime.title}</h3>
+<p>⭐ ${anime.score||"N/A"} · ${anime.type||"Anime"}</p>`;
+card.onclick=()=>openAnime(anime);
+grid.appendChild(card);
+});
+}
+
+function openAnime(anime){
+document.getElementById("details").style.display="block";
+document.getElementById("player").style.display="none";
+document.getElementById("detailImg").src=anime.images.jpg.large_image_url;
+document.getElementById("detailTitle").textContent=anime.title;
+document.getElementById("detailInfo").textContent=
+"⭐ "+(anime.score||"N/A")+" | "+(anime.episodes||"Unknown")+" episodes | "+(anime.status||"");
+document.getElementById("detailDesc").textContent=anime.synopsis||"No description available.";
+const list=document.getElementById("episodeList");
+list.innerHTML="";
+const message=document.createElement("p");
+message.style.color="#bbb";
+message.textContent="Episode playback will be added using authorized streaming sources.";
+list.appendChild(message);
+document.getElementById("details").scrollIntoView();
+}
+
+function closeDetails(){
+document.getElementById("details").style.display="none";
+}
+
+function closePlayer(){
+document.getElementById("player").style.display="none";
+document.getElementById("details").style.display="block";
+}
+
+document.getElementById("search").addEventListener("input",async(e)=>{
+const query=e.target.value.toLowerCase();
+if(!query){showAnime(animeList);return;}
+showAnime(animeList.filter(a=>a.title.toLowerCase().includes(query)));
+});
+
+loadAnime();
+</script>
+</body>
+</html>
