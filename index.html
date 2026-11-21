@@ -171,6 +171,17 @@ margin-bottom:20px;cursor:pointer;">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
+
+// SUPABASE CONNECTION
+const SUPABASE_URL = "https://fnywcudivqoczopljtbq.supabase.co";
+const SUPABASE_KEY = "sb_publishable_-M1Mk3Cv7cfovbX8rNwN1g_pb2pfeMx";
+
+const supabaseClient = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
+
+// EXISTING ANIMEVERSE CODE
 const grid = document.getElementById("animeGrid");
 let animeList = [];
 let searchTimer;
