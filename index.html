@@ -571,7 +571,29 @@ function closePlayer() {
   document.getElementById("player").style.display = "none";
   document.getElementById("details").style.display = "block";
 }
-function openEpisode(animeTitle, episodeNumber) {
+function openTrailer() {
+  document.getElementById("details").style.display = "none";
+  document.getElementById("player").style.display = "block";
+
+  document.getElementById("playerTitle").textContent =
+    "One Piece — Official Trailer";
+
+  document.getElementById("watchAnimeTitle").textContent =
+    "One Piece — Official Trailer";
+
+  document.getElementById("videoArea").innerHTML = `
+    <iframe
+      src="https://www.youtube.com/embed/H5jBp-LzArE"
+      title="One Piece Trailer"
+      allowfullscreen
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
+    </iframe>
+  `;
+
+  document.getElementById("player").scrollIntoView({
+    behavior: "smooth"
+  });
+}
   document.getElementById("details").style.display = "none";
   document.getElementById("player").style.display = "block";
 
