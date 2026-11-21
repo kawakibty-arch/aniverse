@@ -464,7 +464,105 @@ document.getElementById("search").addEventListener("input", e => {
   }, 600);
 });
 
-function toggleWatchlist(anime) {
+
+async function toggleWatchlist(anime) {
+  const { data: sessionData } =
+    await supabaseClient.auth.getSession();
+
+  if (!sessionData.session) {
+    showAuth("login");
+    document.getElementById("authMessage").textContent =
+      "Please log in to save anime.";
+    return;
+  }
+
+  const userId = sessionData.session.user.id;
+  const exists = cloudWatchlistIds.has(anime.id);
+
+  let result;
+
+  if (exists) {
+    result = await supabaseClient
+      .from("watchlist")
+      .delete()
+      .eq("user_id", userId)
+      .eq("anime_id", anime.id);
+  } else {
+    result = await supabaseClient
+      .from("watchlist")
+      .insert({
+        user_id: userId,
+        anime_id: anime.id,
+        anime_data: anime
+      });
+  }
+
+  if (result.error) {
+    alert("Watchlist error: " + result.error.message);
+    return;
+  }
+
+  await renderWatchlist();
+  openAnime(anime);
+}
+
+async function renderWatchlist() {
+  const container =
+    document.getElementById("watchlistGrid");
+
+  const { data: sessionData } =
+    await supabaseClient.auth.getSession();
+
+  if (!sessionData.session) {
+    cloudWatchlistIds.clear();
+    container.textContent =
+      "Please log in to view your personal watchlist.";
+    return;
+  }
+
+  const { data, error } = await supabaseClient
+    .from("watchlist")
+    .select("anime_id, anime_data")
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    container.textContent =
+      "Unable to load watchlist: " + error.message;
+    return;
+  }
+
+  cloudWatchlistIds = new Set(
+    data.map(item => item.anime_id)
+  );
+
+  container.innerHTML = "";
+
+  if (data.length === 0) {
+    container.textContent = "No anime saved yet.";
+    return;
+  }
+
+  data.forEach(item => {
+    const anime = item.anime_data;
+
+    const card = document.createElement("div");
+    card.className = "anime";
+
+    const img = document.createElement("img");
+    img.src = anime.coverImage.large;
+    img.alt = anime.title.english || anime.title.romaji;
+
+    const title = document.createElement("h3");
+    title.textContent =
+      anime.title.english || anime.title.romaji;
+
+    card.append(img, title);
+    card.onclick = () => openAnime(anime);
+
+    container.appendChild(card);
+  });
+}
+
   let saved = JSON.parse(
     localStorage.getItem("animeWatchlist") || "[]"
   );
