@@ -156,6 +156,8 @@ query ($search: String, $genres: [String]) {
 
 
 async function fetchAnime(search = null, genre = null) {
+  selectedGenre = genre;
+
   grid.innerHTML = "<p>Loading anime...</p>";
 
   try {
